@@ -14,3 +14,12 @@ def load_tasks():
 def save_tasks(tasks):
     with open(TASK_FILE, "w") as f:
         json.dump(tasks, f, indent=2)
+
+# Display task list
+def show_tasks(tasks):
+    if not tasks:
+        print("No tasks yet.")
+        return
+    for i, task in enumerate(tasks):
+        status = "✔️" if task["done"] else "❌"
+        print(f"{i + 1}. [{status}] {task['title']}")
