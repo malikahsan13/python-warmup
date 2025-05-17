@@ -23,3 +23,10 @@ def show_tasks(tasks):
     for i, task in enumerate(tasks):
         status = "✔️" if task["done"] else "❌"
         print(f"{i + 1}. [{status}] {task['title']}")
+
+# Add a new task
+def add_task(tasks):
+    title = input("Enter task title: ")
+    tasks.append({"title": title, "done": False})
+    save_tasks(tasks)
+    print("Task added.")
