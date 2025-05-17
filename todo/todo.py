@@ -41,3 +41,14 @@ def mark_done(tasks):
         print("Task marked as done.")
     else:
         print("Invalid task number.")
+
+# Delete a task
+def delete_task(tasks):
+    show_tasks(tasks)
+    index = int(input("Enter task number to delete: ")) - 1
+    if 0 <= index < len(tasks):
+        tasks.pop(index)
+        save_tasks(tasks)
+        print("Task deleted.")
+    else:
+        print("Invalid task number.")
