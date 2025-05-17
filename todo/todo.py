@@ -30,3 +30,14 @@ def add_task(tasks):
     tasks.append({"title": title, "done": False})
     save_tasks(tasks)
     print("Task added.")
+
+# Mark task as done
+def mark_done(tasks):
+    show_tasks(tasks)
+    index = int(input("Enter task number to mark as done: ")) - 1
+    if 0 <= index < len(tasks):
+        tasks[index]["done"] = True
+        save_tasks(tasks)
+        print("Task marked as done.")
+    else:
+        print("Invalid task number.")
