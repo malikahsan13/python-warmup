@@ -52,3 +52,31 @@ def delete_task(tasks):
         print("Task deleted.")
     else:
         print("Invalid task number.")
+
+ #Main menu loop
+def main():
+    tasks = load_tasks()
+    while True:
+        print("\n== TO-DO MENU ==")
+        print("1. View Tasks")
+        print("2. Add Task")
+        print("3. Mark as Done")
+        print("4. Delete Task")
+        print("5. Quit")
+        choice = input("Choose an option: ")
+
+        if choice == "1":
+            show_tasks(tasks)
+        elif choice == "2":
+            add_task(tasks)
+        elif choice == "3":
+            mark_done(tasks)
+        elif choice == "4":
+            delete_task(tasks)
+        elif choice == "5":
+            break
+        else:
+            print("Invalid choice.")
+
+if __name__ == "__main__":
+    main()
