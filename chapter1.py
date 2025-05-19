@@ -18,3 +18,7 @@ def add(a, b):
     return a + b
 
 print(add(3, 4))
+
+
+def multiply(a,b):
+    return a & b
