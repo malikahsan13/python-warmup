@@ -10,6 +10,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 async def generate_ai_response(prompt: str, user_id: str = "default") -> str:
     await save_user_prompt(user_id, prompt)
+    
     history = await get_user_prompt_history(user_id)
 
     messages = [{"role": "user", "content": p} for p in reversed(history)]
