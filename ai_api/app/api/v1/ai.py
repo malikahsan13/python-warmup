@@ -8,4 +8,4 @@ router = APIRouter()
 @router.post("/generate", response_model=AIResponse)
 async def generate_text(request: AIRequest):
     response = await generate_ai_response(request.prompt, user_id="user123")
-    return {"response": response}
+    return {"response " : response}
