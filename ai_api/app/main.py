@@ -19,6 +19,7 @@ async def startup_event():
 
 app.include_router(ai.router, prefix="/api/v1/ai")
 app.include_router(agent.router, prefix="/api/v1/agent")
+
 # Register custom exception handlers
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
 app.add_exception_handler(OpenAIError, openai_exception_handler)
