@@ -1,11 +1,14 @@
 from langchain.chat_models import ChatOpenAI
 from langchain.agents import initialize_agent, AgentType
 from langchain.tools import Tool
+from langchain_community.chat_message_histories import RedisChatMessageHistory
+from langchain.memory import ConversationBufferMemory
+
 import os
 
 llm = ChatOpenAI(temperature=0.7, model="gpt-4", openai_api_key=os.getenv("OPENAI_API_KEY"))
 
-# Simple tool
+# Tool
 def calculator_tool(input: str) -> str:
     try:
         return str(eval(input))
@@ -20,9 +23,26 @@ tools = [
     ),
 ]
 
-agent = initialize_agent(
-    tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True
-)
+# 👇 Memory using Redis
+def get_agent_with_memory(user_id: str):
+    message_history = RedisChatMessageHistory(
+        session_id=f"user:{user_id}",
+        url=os.getenv("REDIS_URL", "redis://localhost:6379"),
+    )
+    memory = ConversationBufferMemory(
+        memory_key="chat_history", return_messages=True, chat_memory=message_history
+    )
 
-async def run_agent(prompt: str) -> str:
+    agent = initialize_agent(
+        tools,
+        llm,
+        agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+        verbose=True,
+        memory=memory,
+    )
+    return agent
+
+# Entrypoint
+async def run_agent(prompt: str, user_id: str = "user123") -> str:
+    agent = get_agent_with_memory(user_id)
     return agent.run(prompt)
