@@ -9,6 +9,7 @@ from app.core.exceptions import (
 from openai.error import OpenAIError
 from app.core.db import init_db
 from app.api.v1 import agent
+from app.api.v1 import files
 
 
 app = FastAPI(title="AI Agent API", version="1.0")
@@ -17,6 +18,7 @@ app = FastAPI(title="AI Agent API", version="1.0")
 async def startup_event():
     await init_db()
 
+app.include_router(files.router, prefix="/api/v1/files")
 app.include_router(ai.router, prefix="/api/v1/ai")
 app.include_router(agent.router, prefix="/api/v1/agent")
 
