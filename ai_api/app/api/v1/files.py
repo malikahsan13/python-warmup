@@ -2,8 +2,17 @@ from fastapi import APIRouter, File, UploadFile, HTTPException
 import pdfplumber
 import pandas as pd
 import io
+from app.vector_store.faiss_store import save_to_vector_store
 
 router = APIRouter()
+
+@router.post("/upload/pdf")
+async def upload_pdf(file: UploadFile = File(...)):
+    # ... (existing logic)
+    with pdfplumber.open(io.BytesIO(await file.read())) as pdf:
+        content = "".join([p.extract_text() for p in pdf.pages if p.extract_text()])
+    save_to_vector_store(content)
+    return {"message": "PDF uploaded and indexed."}
 
 @router.post("/upload/pdf")
 async def upload_pdf(file: UploadFile = File(...)):
