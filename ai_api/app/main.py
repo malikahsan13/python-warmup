@@ -2,16 +2,16 @@
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from app.api.v1 import ai
-from app.core.exceptions import (
-    validation_exception_handler,
-    openai_exception_handler
-)
 from openai.error import OpenAIError
 from app.core.db import init_db
 from app.api.v1 import agent
 from app.api.v1 import files
 from app.api.v1 import vector
 from app.api.v1 import rag
+from app.core.exceptions import (
+    validation_exception_handler,
+    openai_exception_handler
+)
 
 app = FastAPI(title="AI Agent API", version="1.0")
 
