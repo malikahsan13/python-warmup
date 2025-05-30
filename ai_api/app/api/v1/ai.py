@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from app.models.ai_models import AIRequest, AIResponse
 from app.services.openai_service import generate_ai_response
 
+
 router = APIRouter()
 
 @router.post("/generate", response_model=AIResponse)
