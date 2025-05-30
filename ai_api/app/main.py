@@ -15,6 +15,7 @@ from app.core.exceptions import (
 
 app = FastAPI(title="AI Agent API", version="1.0")
 
+
 @app.on_event("startup")
 async def startup_event():
     await init_db()
