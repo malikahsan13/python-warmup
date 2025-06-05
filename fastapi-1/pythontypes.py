@@ -1,4 +1,4 @@
-def add(firstname : str | list, lastname: str = None):
+def add(firstname : str | list[int], lastname: str = None):
     return firstname+" "+lastname
 
 
@@ -7,3 +7,10 @@ lname = "Gates"
 
 name = add(fname)
 print(name)
+
+
+def showNumbers(numberList : list[int, int, bool]):
+    for i in numserList:
+        print(i)
+
+showNumbers([True, True, 3])
