@@ -17,6 +17,11 @@ async def root():
 async def read_item(item_id):
     return {"item_id": item_id}
 
+
+@app.post("/items/")
+async def create_item(item: Item):
+    return item
+
 @app.get("/users/me")
 async def read_user_me():
     return {"user_id": "the current user"}
