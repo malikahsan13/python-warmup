@@ -67,7 +67,9 @@ fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"
 #     return fake_items_db[skip : skip + limit]    
 
 @app.get("/items/")
-async def read_items(q: str | None = Query(default=None, max_length=50)):
+async def read_items(
+    q: Annotated[str | None, Query(min_length=3, max_length=50)] = None,
+):
     results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
     if q:
         results.update({"q": q})
