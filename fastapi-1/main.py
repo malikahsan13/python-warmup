@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Path, Query
 from typing import Annotated
 from pydantic import BaseModel
 
