@@ -15,9 +15,13 @@ conn = MongoClient("mongodb://localhost:27017")
 @app.get("/", response_class=HTMLResponse)
 async def getIndex(request: Request):
     docs = conn.notes.notes.find({})
+    newDocs = []
     for doc in docs:
-        print(doc["note"])
-    return templates.TemplateResponse("index.html", { "request": request })
+        newDocs.append({
+            "id": doc["_id"],
+            "note": doc["note"]
+        })
+    return templates.TemplateResponse("index.html", { "request": request, "newDocs": newDocs})
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: str | None = None):
