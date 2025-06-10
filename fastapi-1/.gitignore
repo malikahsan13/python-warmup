@@ -1,0 +1,51 @@
+# Compiled object files
+*.o
+*.obj
+
+# Executable binaries
+*.exe
+*.out
+*.app
+*.elf
+
+# Static and shared libraries
+*.a
+*.so
+*.dll
+*.dylib
+
+# Debug and core files
+*.dSYM/
+*.stackdump
+core
+
+# Build directories
+/build/
+/bin/
+/dist/
+/Debug/
+/Release/
+
+# Editor/IDE files
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+.vscode/
+.idea/
+*.code-workspace
+
+# CMake / Make
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Logs
+*.log
+
+# Coverage files
+*.gcda
+*.gcno
+*.gcov
