@@ -1,16 +1,9 @@
-def add(firstname : str | list[int], lastname: str = None):
-    return firstname+" "+lastname
+def add (firstname: str, lastname: str):
+    return firstname.capitalize()+" "+lastname.capitalize()
 
 
-fname = "Bill"
-lname = "Gates"
+fname = "bill"
+lname = "test"
 
-name = add(fname)
+name = add(fname, lname)
 print(name)
-
-
-def showNumbers(numberList : list[int, int, bool]):
-    for i in numserList:
-        print(i)
-
-showNumbers([True, True, 3])
