@@ -1,9 +1,11 @@
-def add (firstname: str, lastname: str):
-    return firstname.capitalize()+" "+lastname.capitalize()
+class Person:
+    def __init__(self, name: str):
+        self.name = name
 
+    
+def get_person_name(one_person: Person):
+    return one_person.name.capitalize()
 
-fname = "bill"
-lname = "test"
-
-name = add(fname, lname)
-print(name)
+p1 = Person("test")
+print(get_person_name(p1))
+        
