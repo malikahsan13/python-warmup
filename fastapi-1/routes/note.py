@@ -48,3 +48,14 @@ async def updateNote(note_id: str, note: Note):
     
     conn.notes.notes.update_one({"_id": oid}, {"$set": dict(note)})
     return {"message": "Note updated", "note": note}
+
+
+@note.delete("/note/{note_id}")
+async def deleteNote(note_id: str):
+    try:
+        oid = ObjectId(note_id)
+    except InvalidId:
+        raise HTTPException(status_code=400, detail="Invalid note ID")
+    
+    conn.notes.notes.delete_one({"_id": oid})
+    return {"message": "Note deleted", "note_id": note_id}
