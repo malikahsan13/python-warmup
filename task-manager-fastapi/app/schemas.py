@@ -7,8 +7,8 @@ class TaskBase(BaseModel):
     title: str
     description: Optional[str] = None
     status: str = "pending"
-    created_at: datetime
-    updated_at: datetime
+    created_at: datetime = datetime.utcnow()
+    updated_at: datetime = datetime.utcnow()
     
 class CreateTask(TaskBase):
     pass

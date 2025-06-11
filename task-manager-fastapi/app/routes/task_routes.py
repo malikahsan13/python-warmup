@@ -1,8 +1,10 @@
 from fastapi import APIRouter, HTTPException
 from app.database import db
-from app.schemas import Task, TaskCreate
+from app.schemas import Task, CreateTask
 from bson import ObjectId
 from datetime import datetime
+
+router = APIRouter()
 
 def task_serializer(task) -> dict:
     return {
@@ -14,7 +16,7 @@ def task_serializer(task) -> dict:
         }
     
 @router.post("/", response_model=Task)
-async def create_task(task: TaskCreate):
+async def create_task(task: CreateTask):
     now = datetime.utcnow()
     task_dict = task.dict()
     task_dict.update({"created_at": now, "updated_at": now})
@@ -22,3 +24,23 @@ async def create_task(task: TaskCreate):
     new_task = await db.tasks.find_one({"_id":result.inserted_id})
     return task_serializer(new_task)
 
+@router.get("/")
+async def get_tasks():
+    tasks = await db.tasks.find().to_list(100)
+    return [task_serializer(task) for task in tasks]
+
+@router.put("/{task_id}")
+async def update_task(task_id: str, task: CreateTask):
+    new_task = task.dict()
+    new_task["updated_at"] = datetime.utcnow()
+    
+    result = await db.tasks.update_one(
+        {"_id": ObjectId(task_id)},
+        {"$set": new_task}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Task not found")
+    
+    updated_task = await db.tasks.find_one({"_id": ObjectId(task_id)})
+    return task_serializer(updated_task)
