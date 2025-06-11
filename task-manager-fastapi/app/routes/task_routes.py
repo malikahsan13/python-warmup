@@ -44,3 +44,20 @@ async def update_task(task_id: str, task: CreateTask):
     
     updated_task = await db.tasks.find_one({"_id": ObjectId(task_id)})
     return task_serializer(updated_task)
+
+
+@router.delete("/{task_id}")
+async def delete_task(task_id: str):
+    try:
+        old_task = await db.tasks.find_one({"_id": ObjectId(task_id)})
+        if old_task is None:
+            return {"message": "Task not found"}
+        result = await db.tasks.delete_one({"_id": ObjectId(task_id)})
+        if result:
+            return {"message": "Task deleted successfully"}
+        else:
+            return {"message": "Task not found"}
+    except Exception as e:
+        raise HTTPException(status_code=404, detail="Task not found")
+        
+        
