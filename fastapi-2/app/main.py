@@ -20,3 +20,8 @@ def get_item(item_id: int, q:Union[str, None] = None):
 @app.put("/item/{item_id}")
 def update_item(item_id: int, item: Item):
     return {"item_name": item.name, "item_id": item_id}
+
+@app.get("/getFullName")
+def get_full_name(first_name, last_name):
+    full_name = first_name.title()+" "+last_name.title()
+    return full_name
