@@ -14,3 +14,7 @@ def get_item(item_id: int):
 @app.get("/get_items_query")
 def get_item_query(item_id: int, q: str = None):
     return {"item_id": item_id, "q": q}
+
+@app.get("/get_item_both/{item_id}")
+def get_item_both(item_id: int, q: str = None):
+    return {"item_id": item_id, "q": q}
