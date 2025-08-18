@@ -18,3 +18,10 @@ def validation_error_handler(request, exc: RequestValidationError):
         content={"error": "Invalid request", "details": exc.errors()}
     )
     
+@app.exception_handler(Exception)
+def generic_exception_handler(request, exc: Exception):
+    return JSONResponse(
+        status_code=500,
+        content={"error": "Internal Server Error", "details": str(exc)}
+    )
+    
