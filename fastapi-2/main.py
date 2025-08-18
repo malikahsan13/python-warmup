@@ -25,3 +25,16 @@ def generic_exception_handler(request, exc: Exception):
         content={"error": "Internal Server Error", "details": str(exc)}
     )
     
+@app.post("/user")
+def create_user(user: User):
+    users = []
+    try:
+        # Simulate a database operation 
+        # For example, you can use a database library like SQLAlchemy or asyncpg
+        # For simplicity, we'll just store the user in memory
+        users.append(user)
+        return {"message": "User created successfully", "user": user}
+    except ValueError as ve:
+        raise HTTPException(status_code=400, details=f"Invalid input: {str(ve)}")
+    except Exception as e:
+        raise HTTPException(status_code=500, details=f"Internal Server Error: {str(e)}")
