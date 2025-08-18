@@ -15,6 +15,6 @@ app = FastAPI()
 def validation_error_handler(request, exc: RequestValidationError):
     return JSONResponse(
         status_code=422,
-        content={"error": "Invalid request 111", "details": exc.errors()}
+        content={"error": "Invalid request", "details": exc.errors()}
     )
     
