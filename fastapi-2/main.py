@@ -1,20 +1,20 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+from fastapi.exceptions import RequestValidationError, HTTPException
+from fastapi.responses import JSONResponse
+
+class User(BaseModel):
+    id: int
+    name: str
+    age: int = None
+    dob: str = None
 
 app = FastAPI()
 
-@app.get("/")
-def showHelloWorld():
-    return {"hello":"world"}
-
-
-@app.get("/get_items/{item_id}")
-def get_item(item_id: int):
-    return {"item_id": item_id}
-
-@app.get("/get_items_query")
-def get_item_query(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
-
-@app.get("/get_item_both/{item_id}")
-def get_item_both(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
+@app.exception_handler(RequestValidationError)
+def validation_error_handler(request, exc: RequestValidationError):
+    return JSONResponse(
+        status_code=422,
+        content={"error": "Invalid request 111", "details": exc.errors()}
+    )
+    
